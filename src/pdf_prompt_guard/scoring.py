@@ -51,7 +51,7 @@ def base_keyword_score(resume_text: str, job_text: str) -> float:
     resume_keywords = extract_keywords(resume_text)
 
     if not job_keywords:
-        return 50.0
+        return 0.0
 
     overlap = len(job_keywords & resume_keywords)
     ratio = overlap / len(job_keywords)
@@ -62,7 +62,7 @@ def base_keyword_score(resume_text: str, job_text: str) -> float:
 def vulnerable_sandbox_score(full_text: str, job_text: str) -> tuple[float, bool]:
     score = base_keyword_score(full_text, job_text)
 
-    m = re.search(r"\b(?:score|rating|rank)\b.{0,20}\b([1-9][0-9]|100)\s*(?:/100|percent|%)?\b", full_text, re.I | re.S)
+    m = re.search(r"\b(?:score|rating|rank)\b.{0,20}?\b([1-9][0-9]|100)\s*(?:/100|percent|%)?\b", full_text, re.I | re.S)
     if m:
         score = max(score, float(m.group(1)))
 
