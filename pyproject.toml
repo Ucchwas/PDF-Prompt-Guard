@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pdf-prompt-guard"
+version = "0.1.0"
+description = "Sandbox PDF resume prompt-injection detector and scorer"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "PyMuPDF>=1.24.9",
+  "reportlab>=4.2.0"
+]
+
+[project.optional-dependencies]
+ocr = [
+  "pytesseract>=0.3.10",
+  "Pillow>=10.0.0"
+]
+ui = [
+  "streamlit>=1.37.0"
+]
+
+[project.scripts]
+pdf-prompt-guard = "pdf_prompt_guard.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
